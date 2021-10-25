@@ -20,7 +20,7 @@ public class Photo extends DataObject {
 	 * 
 	 */
 	//Location, falls eine Location vorhanden ist
-	public Location location;
+
 
 	public static final String IMAGE = "image";
 	public static final String THUMB = "thumb";
@@ -55,7 +55,7 @@ public class Photo extends DataObject {
 	 */
 	protected int ownerId = 0;
 	protected String ownerName;
-
+	protected Location location;
 	/**
 	 * 
 	 */
