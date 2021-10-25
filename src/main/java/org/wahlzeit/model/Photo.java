@@ -19,6 +19,9 @@ public class Photo extends DataObject {
 	/**
 	 * 
 	 */
+	//Location, falls eine Location vorhanden ist
+	public Location location;
+
 	public static final String IMAGE = "image";
 	public static final String THUMB = "thumb";
 	public static final String LINK = "link";
@@ -92,6 +95,15 @@ public class Photo extends DataObject {
 	/**
 	 * 
 	 */
+
+	//wenn eine Location vorhanden ist, dann kann man damit ein Photo erzeugen, wenn nicht dann nimmt man einen anderen Konstruktor
+	public Photo(Location loco) {
+		id = PhotoId.getNextId();
+		this.location = loco;
+		incWriteCount();
+	}
+
+
 	public Photo() {
 		id = PhotoId.getNextId();
 		incWriteCount();
