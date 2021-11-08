@@ -2,8 +2,10 @@ package org.wahlzeit.model;
 
 import org.junit.Test;
 
+//test klasse fuer Photo
 public class PhotoTest {
 
+    //test ob der Konstruktor funktioniert mit location als prarmeter
     @Test
     public void conTest() throws Exception {
         try {

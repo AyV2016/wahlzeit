@@ -2,8 +2,10 @@ package org.wahlzeit.model;
 
 import org.junit.Test;
 
+//test fuer die Klasse Location
 public class LocationTest {
 
+    //konstruktor Test
     @Test
     public void conTest()throws Exception{
         try{

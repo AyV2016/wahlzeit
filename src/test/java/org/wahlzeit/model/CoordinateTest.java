@@ -5,12 +5,14 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+// Test fuer die Klasse Coordinate
 public class CoordinateTest {
 
     static Coordinate c;
     static Coordinate c2;
     static Coordinate c3;
 
+    //3 haupt coordinates die zum testen genutzt werden, werden hier ein mal gesetzt
     @BeforeClass
     static public void initCoordinates(){
         c = new Coordinate(5, 13 ,67);
@@ -18,6 +20,7 @@ public class CoordinateTest {
         c3 = new Coordinate(-41, -0.413478, 414);
     }
 
+    //getter test
     @Test
     public void getTest() throws Exception{
         try{
@@ -32,6 +35,7 @@ public class CoordinateTest {
         }
     }
 
+    //getDistance test
     @Test
     public void getDistanceTest() throws Exception{
         try{
@@ -46,6 +50,7 @@ public class CoordinateTest {
         }
     }
 
+    //isEqual Test
     @Test
     public void isEqualTest() throws Exception{
         try{
@@ -59,6 +64,7 @@ public class CoordinateTest {
         }
     }
 
+    //testen ob das forwarding richtig funktioniert
     @Test
     public void equalsTest() throws Exception{
         try{
