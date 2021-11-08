@@ -19,23 +19,23 @@ public class Coordinate {
         this.z = z;
     }
 
-    double getX(){
+    public double getX(){
         return x;
     }
 
-    double getY(){
+    public double getY(){
         return y;
     }
 
-    double getZ(){
+    public double getZ(){
         return z;
     }
 
-    double getDistance(Coordinate coordinate){
+    public double getDistance(Coordinate coordinate){
         return Math.sqrt(Math.pow(coordinate.getX() - this.x, 2) + Math.pow(coordinate.getY() - this.y, 2) + Math.pow(coordinate.getZ() - this.z, 2));
     }
 
-    boolean isEqual(Coordinate coordinate){
+    public boolean isEqual(Coordinate coordinate){
         System.out.println("isEquals wurde aufgerufen");
         if(coordinate.getX() == this.x && coordinate.getY() == this.y && coordinate.getZ() == this.z)
             return true;
@@ -43,7 +43,7 @@ public class Coordinate {
             return false;
     }
 
-    boolean equals(Coordinate coordinate){
+    private boolean equals(Coordinate coordinate){
         return isEqual(coordinate);
     }
 
