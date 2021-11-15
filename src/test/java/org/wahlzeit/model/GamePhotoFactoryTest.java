@@ -20,18 +20,32 @@ public class GamePhotoFactoryTest {
 
     @Test
     public void facTest() throws Exception{
-        gpf.newGamePhoto();
+        try {
+            gpf.newGamePhoto();
+        }catch (Exception e){
+            throw new Exception("failed without anything");
+        }
     }
 
     @Test
     public void locFacTest() throws Exception{
+        try {
             gpf.newGamePhoto(loc);
-
+        }catch (Exception e){
+            throw new Exception("failed without anything");
+        }
     }
+
+    
     @Test
     public void pidFacTest() throws Exception{
-        gpf.newGamePhoto(pid);
+        try {
+            gpf.newGamePhoto(pid);
+        }catch (Exception e){
+            throw new Exception("failed without anything");
+        }
     }
+
 
 
 
