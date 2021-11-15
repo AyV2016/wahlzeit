@@ -27,9 +27,9 @@ public class CoordinateTest {
             double x = c.getX();
             double y = c.getY();
             double z = c.getZ();
-            assertEquals(5,x, 0);
-            assertEquals(13, y, 0);
-            assertEquals(67, z, 0);
+            assertEquals(5,x, 0.1);
+            assertEquals(13, y, 0.1);
+            assertEquals(67, z, 0.1);
         }catch (Exception e){
             throw new Exception("Hat nicht geklappt! Get Methoden können nicht aufgerufen werden!");
         }
@@ -40,11 +40,11 @@ public class CoordinateTest {
     public void getDistanceTest() throws Exception{
         try{
             double d = c.getDistance(c2);
-            assertEquals(4362.89882665184, d, 0);
+            assertEquals(4362.89882665184, d, 0.1);
             d = c2.getDistance(c);
-            assertEquals(4362.89882665184, d, 0);
+            assertEquals(4362.89882665184, d, 0.1);
             d = c3.getDistance(c);
-            assertEquals(350.2926225201674, d, 0);
+            assertEquals(350.2926225201674, d, 0.1);
         }catch (Exception e){
             throw new Exception("isCoordinate failed!");
         }

@@ -96,7 +96,7 @@ public class Photo extends DataObject {
 	 * 
 	 */
 
-	//wenn eine Location vorhanden ist, dann kann man damit ein Photo erzeugen, wenn nicht dann nimmt man einen anderen Konstruktor
+	//wenn eine Location vorhanden ist, dann kann man damit ein Photo erzeugen, wenn nicht dann nimmt einen anderen Konstruktor
 	public Photo(Location loco) {
 		id = PhotoId.getNextId();
 		this.location = loco;
@@ -143,7 +143,7 @@ public class Photo extends DataObject {
 
 		ownerId = rset.getInt("owner_id");
 		ownerName = rset.getString("owner_name");
-		
+
 		ownerNotifyAboutPraise = rset.getBoolean("owner_notify_about_praise");
 		ownerEmailAddress = EmailAddress.getFromString(rset.getString("owner_email_address"));
 		ownerLanguage = Language.getFromInt(rset.getInt("owner_language"));
@@ -180,7 +180,7 @@ public class Photo extends DataObject {
 		rset.updateInt("status", status.asInt());
 		rset.updateInt("praise_sum", praiseSum);
 		rset.updateInt("no_votes", noVotes);
-		rset.updateLong("creation_time", creationTime);		
+		rset.updateLong("creation_time", creationTime);
 	}
 
 	/**
