@@ -10,7 +10,7 @@ public class GamePhotoTest {
             Photo p = new GamePhoto();
             GamePhoto p1 = new GamePhoto();
             GamePhoto p2 = new GamePhoto(new PhotoId(5));
-            GamePhoto p3 = new GamePhoto(new Location(new Coordinate(3, 3, 3)));
+            //GamePhoto p3 = new GamePhoto(new Location(new Coordinate(3, 3, 3)));
         }catch (Exception e){
             throw new Exception("failed test");
         }

@@ -7,13 +7,13 @@ import static org.junit.Assert.*;
 
 public class GamePhotoFactoryTest {
 
-    static Location loc;
+    static Location cartloc;
     static PhotoId pid;
     static GamePhotoFactory gpf;
 
     @BeforeClass
     public static void init(){
-        loc = new Location(new Coordinate(23, 4, 5));
+        cartloc = new Location(new CartesianCoordinate(23, 4, 5));
         pid = new PhotoId(5);
         gpf = new GamePhotoFactory();
     }
@@ -30,13 +30,13 @@ public class GamePhotoFactoryTest {
     @Test
     public void locFacTest() throws Exception{
         try {
-            gpf.newGamePhoto(loc);
+            gpf.newGamePhoto(cartloc);
         }catch (Exception e){
             throw new Exception("failed without anything");
         }
     }
 
-    
+
     @Test
     public void pidFacTest() throws Exception{
         try {

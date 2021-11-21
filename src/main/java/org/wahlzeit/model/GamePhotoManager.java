@@ -4,10 +4,27 @@ import java.util.*;
 
 public class GamePhotoManager extends PhotoManager{
 
-    protected static final GamePhotoManager gpm = null;
+    protected static final PhotoManager instance = new GamePhotoManager();
 
     // photos, can be empty or filled
     protected Map<PhotoId, GamePhoto> photoCache = new HashMap<>();
+
+    protected PhotoTagCollector photoTagCollector = null;
+
+    public GamePhotoManager() {
+        photoTagCollector = PhotoFactory.getInstance().createPhotoTagCollector();
+    }
+    public static PhotoManager initialize(){
+        return getInstance();
+    }
+
+    public static PhotoManager getInstance() {
+        return instance;
+    }
+
+    public static boolean hasPhoto(String id) {
+        return hasPhoto(PhotoId.getIdFromString(id));
+    }
 
     //all methods stay the same because GamePhoto extends Photo so for all Photo instances GamePhoto can be used instead -> no need to change that
 

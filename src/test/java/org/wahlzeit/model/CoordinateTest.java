@@ -11,77 +11,92 @@ public class CoordinateTest {
     static Coordinate c;
     static Coordinate c2;
     static Coordinate c3;
+    static Coordinate c4;
 
-    //3 haupt coordinates die zum testen genutzt werden, werden hier ein mal gesetzt
+    //2 haupt coordinates die zum testen genutzt werden, werden hier ein mal gesetzt
     @BeforeClass
     static public void initCoordinates(){
-        c = new Coordinate(5, 13 ,67);
-        c2 = new Coordinate(450, 1403, 4178.54);
-        c3 = new Coordinate(-41, -0.413478, 414);
+        c = new SphericCoordinate(5, 13 ,67);
+        //x = radius, y = theta, z = phi
+        c2 = new CartesianCoordinate(450, 1403, 4178.54);
+        c3 = new CartesianCoordinate(13, 13, 13);
+        c4 = new SphericCoordinate(1, 15, 45);
     }
 
     //getter test
     @Test
-    public void getTest() throws Exception{
-        try{
-            double x = c.getX();
-            double y = c.getY();
-            double z = c.getZ();
+    public void getTest() {
+            double x = c2.getX();
+            double y = c2.getY();
+            double z = c2.getZ();
             assertEquals(5,x, 0.1);
             assertEquals(13, y, 0.1);
             assertEquals(67, z, 0.1);
-        }catch (Exception e){
-            throw new Exception("Hat nicht geklappt! Get Methoden können nicht aufgerufen werden!");
-        }
-    }
-
-    //getDistance test
-    @Test
-    public void getDistanceTest() throws Exception{
-        try{
-            double d = c.getDistance(c2);
-            assertEquals(4362.89882665184, d, 0.1);
-            d = c2.getDistance(c);
-            assertEquals(4362.89882665184, d, 0.1);
-            d = c3.getDistance(c);
-            assertEquals(350.2926225201674, d, 0.1);
-        }catch (Exception e){
-            throw new Exception("isCoordinate failed!");
-        }
+            x = c.getX();
+            y = c.getY();
+            z = c.getZ();
+            assertEquals(450,x, 0.1);
+            assertEquals(1403, y, 0.1);
+            assertEquals(4178.54, z, 0.1);
     }
 
     //isEqual Test
     @Test
-    public void isEqualTest() throws Exception{
-        try{
+    public void isEqualTest() {
             boolean p = c.isEqual(c2);
             assertEquals(p, false);
             p = c.isEqual(c);
             assertEquals(p, true);
-        }
-        catch (Exception e){
-            throw new Exception("isEqual failed!");
-        }
     }
 
     //testen ob das forwarding richtig funktioniert
     @Test
-    public void equalsTest() throws Exception{
-        try{
+    public void equalsTest(){
             boolean p = c.equals(c2);
             assertEquals(p, false);
             p = c.equals(c);
             assertEquals(p, true);
-        }catch (Exception e){
-            throw new Exception("equals failed!");
-        }
+     }
+
+     @Test
+    public void conversionTest(){
+        SphericCoordinate sc = c.asSphericCoordinate();
+        assertEquals(sc, c);
+        SphericCoordinate sc2 = new SphericCoordinate(4430.7, 1.26, 0.34);
+        assertEquals(c2.asSphericCoordinate().getX(), sc2.getX(), 0.1);
+        assertEquals(c2.asSphericCoordinate().getY(), sc2.getY(), 0.1);
+        assertEquals(c2.asSphericCoordinate().getZ(), sc2.getZ(), 0.1);
+
+        CartesianCoordinate cc = c2.asCartesianCoordinate();
+        assertEquals(cc, c2);
+
+        cc = c.asCartesianCoordinate();
+        CartesianCoordinate c_test = new CartesianCoordinate(-3.83, -1.79, -2.58);
+        assertEquals(c_test.getX(), cc.getX(), 0.1);
+         System.out.println("hier");
+        assertEquals(c_test.getY(), cc.getY(), 0.1);
+        assertEquals(c_test.getZ(), cc.getZ(), 0.1);
+     }
+
+     @Test
+    public void getCentralAngleTest(){
+        double lsg = 0;
+        assertEquals(lsg, c.getCentralAngle(c), 0.1);
+        lsg = c.getCentralAngle(c4);
+        assertEquals(lsg, c.getCentralAngle(c4), 0.1);
+        lsg = c.getCentralAngle(c2.asSphericCoordinate());
+        assertEquals(lsg, c.getCentralAngle(c2.asSphericCoordinate()), 0.1);
+
     }
 
-    public void main(String[] args) throws Exception {
-        getTest();
-        getDistanceTest();
-        isEqualTest();
-        equalsTest();
+    @Test
+    public void getCartesianDistanceTest(){
+        double lsg = 0;
+        assertEquals(lsg, c2.getCartesianDistance(c2), 0.1);
+        lsg = c2.getCartesianDistance(c4);
+        assertEquals(lsg, c2.getCartesianDistance(c4), 0.1);
+        lsg = c2.getCartesianDistance(c3.asCartesianCoordinate());
+        assertEquals(lsg, c2.getCartesianDistance(c3.asCartesianCoordinate()), 0.1);
     }
 
 }

@@ -35,14 +35,14 @@ public class PhotoManager extends ObjectManager {
 	/**
 	 * 
 	 */
-	public static final PhotoManager getInstance() {
+	public static PhotoManager getInstance() {
 		return instance;
 	}
 	
 	/**
 	 * 
 	 */
-	public static final boolean hasPhoto(String id) {
+	public static boolean hasPhoto(String id) {
 		return hasPhoto(PhotoId.getIdFromString(id));
 	}
 	

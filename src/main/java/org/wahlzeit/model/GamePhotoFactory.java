@@ -5,14 +5,14 @@ import org.wahlzeit.services.SysLog;
 public class GamePhotoFactory extends PhotoFactory{
 
     //here we need to change the inits because we want to get GamePhotos which are a special type of Photo, and therefore we need to explicitly instantiate GamePhotosaa
-    private static GamePhotoFactory instance;
+    private static PhotoFactory instance;
 
-    public static synchronized GamePhotoFactory getInstance() {
+
+    public static synchronized PhotoFactory getInstance() {
         if (instance == null) {
             SysLog.logSysInfo("setting generic PhotoFactory");
-            setInstance(new PhotoFactory());
+            PhotoFactory.setInstance(new GamePhotoFactory());
         }
-
         return instance;
     }
     protected static synchronized void setInstance(GamePhotoFactory photoFactory) {
