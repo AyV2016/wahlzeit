@@ -1,32 +1,20 @@
 package org.wahlzeit.model;
 
-public class SphericCoordinate implements Coordinate{
+public class SphericCoordinate extends AbstractCoordinate {
 
-    private double phi, theta, radius;
-
+    // phi and theta are given in degrees, if they were stored as radians then the modulo operation changes
     public SphericCoordinate(double p, double t, double r){
-            this.phi = Math.abs(p );
-            this.theta = Math.abs(t);
-            this.radius = Math.abs(r);
+        this.x = Math.abs(r);
+        this.y = Math.abs(t) % 360; //2*Math.PI;
+        this.z = Math.abs(p) % 360; //2*Math.PI;
     }
 
     public CartesianCoordinate asCartesianCoordinate() {
-        double x = this.phi * Math.sin(this.radius) * Math.cos(this.theta);
-        double y = this.phi * Math.sin(this.radius) * Math.sin(this.theta);
-        double z = this.phi * Math.cos(this.radius);
+        double x = this.x * Math.sin(this.z) * Math.cos(this.y);
+        double y = this.x * Math.sin(this.z) * Math.sin(this.y);
+        double z = this.x * Math.cos(this.z);
         return new CartesianCoordinate(x, y, z);
     }
-
-    public double getX(){
-        return phi;
-    }
-    public double getY(){
-        return theta;
-    }
-    public double getZ(){
-        return radius;
-    }
-
 
     public double getCartesianDistance(Coordinate c) {
         return asCartesianCoordinate().getCartesianDistance(c);
@@ -37,8 +25,8 @@ public class SphericCoordinate implements Coordinate{
     }
 
     public double getCentralAngle(Coordinate c) {
-        SphericCoordinate tmp = c.asSphericCoordinate();
-        return Math.acos((Math.sin(this.phi) * Math.sin(tmp.getX())) + (Math.cos(this.phi)*Math.cos(tmp.getX())*Math.cos(Math.abs(this.theta-tmp.getY())))) * radius;
+        SphericCoordinate cSpheric = c.asSphericCoordinate();
+        return Math.acos((Math.sin(this.z) * Math.sin(cSpheric.getZ())) + (Math.cos(this.z) * Math.cos(cSpheric.getZ()) * Math.cos(Math.abs(this.y - cSpheric.getY())))) * this.x;
     }
 
     public boolean isEqual(Coordinate c) {
@@ -46,8 +34,8 @@ public class SphericCoordinate implements Coordinate{
     }
 
     public boolean equals(Coordinate c){
-        SphericCoordinate tmp = c.asSphericCoordinate();
-        if(this.phi == tmp.getX() && this.theta == tmp.getY() && this.radius == tmp.getZ()){
+        SphericCoordinate cSpheric = c.asSphericCoordinate();
+        if(this.hashCode() == cSpheric.hashCode()){
             return true;
         }
         else{
