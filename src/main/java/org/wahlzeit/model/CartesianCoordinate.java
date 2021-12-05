@@ -1,5 +1,6 @@
 package org.wahlzeit.model;
 
+
 public class CartesianCoordinate extends AbstractCoordinate{
 
     //attributes are inherited from uperclass, so is the hashCode method
@@ -38,9 +39,11 @@ public class CartesianCoordinate extends AbstractCoordinate{
 
         CartesianCoordinate tmp = c.asCartesianCoordinate();
         double dx = Math.sqrt(Math.pow(tmp.getX()-this.x, 2));
+        assert dx != Double.NaN;
         double dy = Math.sqrt(Math.pow(tmp.getY()-this.y, 2));
+        assert dy != Double.NaN;
         double dz = Math.sqrt(Math.pow(tmp.getZ()-this.z, 2));
-        assertSolutionValid(Math.sqrt(dx+dy+dz));
+        assert dz != Double.NaN;
         assertClassInvariants();
         return Math.sqrt(dx+dy+dz);
     }
