@@ -1,5 +1,7 @@
 package org.wahlzeit.model;
 
+import org.jcp.xml.dsig.internal.dom.DOMXPathFilter2Transform;
+
 public class SphericCoordinate extends AbstractCoordinate {
 
     // phi and theta are given in degrees, if they were stored as radians then the modulo operation changes
@@ -24,11 +26,11 @@ public class SphericCoordinate extends AbstractCoordinate {
     public CartesianCoordinate asCartesianCoordinate() throws Exception{
         assertClassInvariants();
         double x = this.x * Math.sin(this.z) * Math.cos(this.y);
-        assertSolutionValid(x);
+        assert x != Double.NaN;
         double y = this.x * Math.sin(this.z) * Math.sin(this.y);
-        assertSolutionValid(y);
+        assert y != Double.NaN;
         double z = this.x * Math.cos(this.z);
-        assertSolutionValid(z);
+        assert z != Double.NaN;
         assertClassInvariants();
         return new CartesianCoordinate(x, y, z);
     }
@@ -48,7 +50,7 @@ public class SphericCoordinate extends AbstractCoordinate {
         coordinateNotNull(c);
         SphericCoordinate cSpheric = c.asSphericCoordinate();
         double lsg = Math.acos((Math.sin(this.z) * Math.sin(cSpheric.getZ())) + (Math.cos(this.z) * Math.cos(cSpheric.getZ()) * Math.cos(Math.abs(this.y - cSpheric.getY())))) * this.x;
-        assertSolutionValid(lsg);
+        assert lsg != Double.NaN;
         return lsg;
     }
 
@@ -72,14 +74,13 @@ public class SphericCoordinate extends AbstractCoordinate {
         }
     }
 
-    private void assertSolutionValid(double sol) throws Exception{
-        if((this.x != 0 || this.y != 0 || this.z != 0 ) && sol == 0) throw new Exception("illegal Argument");
-    }
+//    private void assertSolutionValid(double sol) throws Exception{
+//        if((this.x != 0 || this.y != 0 || this.z != 0 ) && sol == 0) throw new Exception("illegal Argument");
+//    }
 
     public void assertClassInvariants() throws Exception{
         if(this == null) throw new NullPointerException("this is null!");
         if(this.x == Double.NaN || this.y == Double.NaN || this.z == Double.NaN) throw new IllegalStateException("one of the attributes is not a double anymore!");
-
     }
 
     private void coordinateNotNull(Coordinate c) throws NullPointerException{
