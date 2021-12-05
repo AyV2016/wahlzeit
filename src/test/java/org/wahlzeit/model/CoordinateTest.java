@@ -44,7 +44,7 @@ public class CoordinateTest {
 
     //isEqual Test
     @Test
-    public void isEqualTest() {
+    public void isEqualTest() throws Exception{
             boolean p = c.isEqual(c2);
             assertEquals(p, false);
             p = c.isEqual(c);
@@ -62,7 +62,7 @@ public class CoordinateTest {
 
      //also testing if division by 0 is possible or not
     @Test
-    public void conversionTest(){
+    public void conversionTest()throws Exception{
         SphericCoordinate sc = c.asSphericCoordinate();
         assertEquals(sc, c);
         SphericCoordinate sc2 = new SphericCoordinate(0.34, 1.26, 4430.7);
@@ -73,7 +73,7 @@ public class CoordinateTest {
         CartesianCoordinate cc = c2.asCartesianCoordinate();
         assertEquals(cc, c2);
 
-        SphericCoordinate sphericTest = c5.asSphericCoordinate();
+        //SphericCoordinate sphericTest = c5.asSphericCoordinate();
 
         cc = c.asCartesianCoordinate();
         CartesianCoordinate c_test = new CartesianCoordinate(-58.3, -26.9, 19);
@@ -84,7 +84,7 @@ public class CoordinateTest {
      }
 
     @Test
-    public void getCentralAngleTest(){
+    public void getCentralAngleTest()throws Exception{
         double lsg = 0;
         assertEquals(lsg, c.getCentralAngle(c), 0.1);
         lsg = c.getCentralAngle(c4);
@@ -95,7 +95,7 @@ public class CoordinateTest {
     }
 
     @Test
-    public void getCartesianDistanceTest(){
+    public void getCartesianDistanceTest()throws Exception{
         double lsg = 0;
         assertEquals(lsg, c2.getCartesianDistance(c2), 0.1);
         lsg = c2.getCartesianDistance(c4);

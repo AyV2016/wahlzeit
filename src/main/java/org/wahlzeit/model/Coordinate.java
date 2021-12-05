@@ -2,15 +2,15 @@ package org.wahlzeit.model;
 
 public interface Coordinate {
 
-    public CartesianCoordinate asCartesianCoordinate();
+    public CartesianCoordinate asCartesianCoordinate()throws Exception;
 
-    public double getCartesianDistance(Coordinate c);
+    public double getCartesianDistance(Coordinate c) throws Exception;
 
-    public SphericCoordinate asSphericCoordinate();
+    public SphericCoordinate asSphericCoordinate() throws Exception;
 
-    public double getCentralAngle(Coordinate c);
+    public double getCentralAngle(Coordinate c)throws Exception;
 
-    public boolean isEqual(Coordinate c);
+    public boolean isEqual(Coordinate c)throws Exception;
 
     public double getX();
 
