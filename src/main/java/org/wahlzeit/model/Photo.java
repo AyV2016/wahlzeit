@@ -93,11 +93,13 @@ public class Photo extends DataObject {
 	protected long creationTime = System.currentTimeMillis();
 	
 	/**
-	 * 
+	 * @methodetype constructor
 	 */
 
 	//wenn eine Location vorhanden ist, dann kann man damit ein Photo erzeugen, wenn nicht dann nimmt einen anderen Konstruktor
 	public Photo(Location loco) {
+//checking here for Illegal argument, so we dont have to do it manually in the other classes
+		if(loco == null) throw new IllegalArgumentException("loco mustnt be null, try again");
 		id = PhotoId.getNextId();
 		this.location = loco;
 		incWriteCount();
@@ -114,6 +116,8 @@ public class Photo extends DataObject {
 	 * @methodtype constructor
 	 */
 	public Photo(PhotoId myId) {
+		//checking here for Illegal argument, so we dont have to do it manually in the other classes
+		if(myId == null) throw new IllegalArgumentException("pid must not be null, try again");
 		id = myId;
 		
 		incWriteCount();

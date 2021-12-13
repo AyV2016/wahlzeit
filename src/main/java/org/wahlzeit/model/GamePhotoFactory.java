@@ -19,10 +19,10 @@ public class GamePhotoFactory extends PhotoFactory{
         if (instance != null) {
             throw new IllegalStateException("attempt to initialize PhotoFactory twice");
         }
-
         instance = photoFactory;
     }
     public static void initialize() {
+        //no errors possible, methods are built well
         getInstance();
     }
 
@@ -35,10 +35,12 @@ public class GamePhotoFactory extends PhotoFactory{
     }
 
     public GamePhoto newGamePhoto(Location loc){
+        // no need to check for exceptions, GamePhoto-class handles that
         return new GamePhoto(loc);
     }
 
     public GamePhoto newGamePhoto(PhotoId pid){
+        // no need to check for exceptions, GamePhoto-class handles that
         return new GamePhoto(pid);
     }
 }

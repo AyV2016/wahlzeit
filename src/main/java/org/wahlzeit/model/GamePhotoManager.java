@@ -23,6 +23,8 @@ public class GamePhotoManager extends PhotoManager{
     }
 
     public static boolean hasPhoto(String id) {
+        //here may occur a nullpointer exception, that may lead to undefined behavior
+        if(id == null) throw new NullPointerException("id must not be null, try again");
         return hasPhoto(PhotoId.getIdFromString(id));
     }
 

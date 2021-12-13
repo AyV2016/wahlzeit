@@ -83,10 +83,12 @@ public class GamePhoto extends Photo{
     }
 
     public GamePhoto(PhotoId pid){
+        // no need to check for exceptions, super-class handles that
         super(pid);
     }
 
     public GamePhoto(Location loc){
+        // no need to check for exceptions, super-class handles that
         super(loc);
     }
 
