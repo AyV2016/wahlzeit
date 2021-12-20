@@ -46,9 +46,9 @@ public class CoordinateTest {
     @Test
     public void isEqualTest() throws Exception{
             boolean p = c.isEqual(c2);
-            assertEquals(p, false);
+            assertEquals(false, p);
             p = c.isEqual(c);
-            assertEquals(p, true);
+            assertEquals(true, p);
     }
 
     //testen ob das forwarding richtig funktioniert
@@ -63,15 +63,12 @@ public class CoordinateTest {
      //also testing if division by 0 is possible or not
     @Test
     public void conversionTest()throws Exception{
-        SphericCoordinate sc = c.asSphericCoordinate();
-        assertEquals(sc, c);
         SphericCoordinate sc2 = new SphericCoordinate(0.34, 1.26, 4430.7);
         assertEquals(c2.asSphericCoordinate().getX(), sc2.getX(), 0.1);
         assertEquals(c2.asSphericCoordinate().getY(), sc2.getY(), 0.1);
         assertEquals(c2.asSphericCoordinate().getZ(), sc2.getZ(), 0.1);
 
         CartesianCoordinate cc = c2.asCartesianCoordinate();
-        assertEquals(cc, c2);
 
         //SphericCoordinate sphericTest = c5.asSphericCoordinate();
 

@@ -1,10 +1,12 @@
 package org.wahlzeit.model;
 
-import org.jcp.xml.dsig.internal.dom.DOMXPathFilter2Transform;
 
-public class SphericCoordinate extends AbstractCoordinate {
+public final class SphericCoordinate extends AbstractCoordinate {
 
     // phi and theta are given in degrees, if they were stored as radians then the modulo operation changes
+
+    private final double x, y, z;
+
     public SphericCoordinate(double p, double t, double r){
         if(p == Double.NaN || t == Double.NaN || r == Double.NaN) throw new IllegalArgumentException("p, t and r must be a valid double");
         this.x = Math.abs(r);
@@ -40,18 +42,23 @@ public class SphericCoordinate extends AbstractCoordinate {
     public double getCartesianDistance(Coordinate c) throws Exception{
         assertClassInvariants();
         coordinateNotNull(c);
-        return asCartesianCoordinate().getCartesianDistance(c);
+        //copy of itself
+        SphericCoordinate thisCopy = new SphericCoordinate(this.z, this.y, this.x);
+        CartesianCoordinate thisCartesian = thisCopy.asCartesianCoordinate();
+        return thisCartesian.getCartesianDistance(c);
     }
 
     public SphericCoordinate asSphericCoordinate() {
         assertClassInvariants();
-        return this;
+        SphericCoordinate thisCopy = new SphericCoordinate(this.z, this.y, this.x);
+        return thisCopy;
     }
 
     public double getCentralAngle(Coordinate c) throws Exception{
         assertClassInvariants();
         coordinateNotNull(c);
         SphericCoordinate cSpheric = c.asSphericCoordinate();
+        //no need to copy, there is no new object, just a simple value
         double lsg = Math.acos((Math.sin(this.z) * Math.sin(cSpheric.getZ())) + (Math.cos(this.z) * Math.cos(cSpheric.getZ()) * Math.cos(Math.abs(this.y - cSpheric.getY())))) * this.x;
         assert lsg != Double.NaN;
         return lsg;
@@ -70,7 +77,7 @@ public class SphericCoordinate extends AbstractCoordinate {
         //checking that c ist not null and has valid doubles
         coordinateNotNull(c);
         SphericCoordinate cSpheric = c.asSphericCoordinate();
-        if(this.hashCode() == cSpheric.hashCode()){
+        if(this.hashCode() == cSpheric.hashCode() || (this.x == cSpheric.getX() && this.y == cSpheric.getY() && this.z == cSpheric.getZ())){
             //check for ClassInvariants at the end
             assertClassInvariants();
             return true;
@@ -80,6 +87,11 @@ public class SphericCoordinate extends AbstractCoordinate {
             assertClassInvariants();
             return false;
         }
+    }
+
+    //should be correct for the most objects, only in special cases not good enough
+    public int hashCode(){
+        return (int) (x * 100000 + y * 1000 + z * 10);
     }
 
 //    private void assertSolutionValid(double sol) throws Exception{

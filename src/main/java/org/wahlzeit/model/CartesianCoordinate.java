@@ -1,18 +1,22 @@
 package org.wahlzeit.model;
 
 
-public class CartesianCoordinate extends AbstractCoordinate{
+public final class CartesianCoordinate extends AbstractCoordinate{
 
     //attributes are inherited from uperclass, so is the hashCode method
 
+    private final double x, y, z;
+
     public CartesianCoordinate(double x, double y, double z){
         if(x == Double.NaN || y == Double.NaN || z == Double.NaN) throw new IllegalArgumentException("p, t and r must be a valid double");
-            this.x = x;
-            this.y = y;
-            this.z = z;
-            // if x or z are 0, then we have to set them to 1, so we can call asSphericCoordinate without any problem
-            if(x == 0) this.x = 1;
-            if(z == 0) this.z = 1;
+        // if x or z are 0, then we have to set them to 1, so we can call asSphericCoordinate without any problem
+        if(x == 0) this.x = 1;
+        else this.x = x;
+        if(z == 0) this.z = 1;
+        else this.z = z;
+        this.y = y;
+
+
     }
 
     public double getX(){
@@ -29,7 +33,9 @@ public class CartesianCoordinate extends AbstractCoordinate{
 
     public CartesianCoordinate asCartesianCoordinate() throws Exception{
         assertClassInvariants();
-        return this;
+        // must not return itself, rather return a copy, more safe in case of mutability
+        CartesianCoordinate cNew = new CartesianCoordinate(this.x, this.y, this.z);
+        return cNew;
     }
 
     public double getCartesianDistance(Coordinate c) throws Exception {
@@ -75,7 +81,11 @@ public class CartesianCoordinate extends AbstractCoordinate{
         //check for null and illegal attributes
         coordinateNotNull(c);
         SphericCoordinate cSpheric = c.asSphericCoordinate();
-        SphericCoordinate thisSpheric = this.asSphericCoordinate();
+
+        //instantiate a copy of itself, so we can convert that to SphericCoordinate
+        CartesianCoordinate thisCopy = new CartesianCoordinate(this.x, this.y, this.z);
+        //now we can convert safer
+        SphericCoordinate thisSpheric = thisCopy.asSphericCoordinate();
         assertClassInvariants();
         return thisSpheric.getCentralAngle(cSpheric);
     }
@@ -84,6 +94,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
         assertClassInvariants();
         //check for null and illegal attributes
         coordinateNotNull(c);
+        // just forwarding to another method, so no need to change
         return this.equals(c);
     }
 
@@ -92,7 +103,8 @@ public class CartesianCoordinate extends AbstractCoordinate{
         //check for null and illegal attributes
         coordinateNotNull(c);
         CartesianCoordinate cCartesian = c.asCartesianCoordinate();
-        if(this.hashCode() == cCartesian.hashCode()){
+        //if the hashCode is the same or if the attributes are the same, the objects are equal
+        if(this.hashCode() == cCartesian.hashCode() || (this.x == c.getX() && this.y == c.getY() && this.z == c.getZ())){
             assertClassInvariants();
             return true;
         }
@@ -100,6 +112,11 @@ public class CartesianCoordinate extends AbstractCoordinate{
             assertClassInvariants();
             return false;
         }
+    }
+
+    //should be correct for the most objects, only in special cases not good enough
+    public int hashCode(){
+        return (int) (x * 100000 + y * 1000 + z * 10);
     }
 
     private void assertSolutionValid(double sol) throws Exception{
