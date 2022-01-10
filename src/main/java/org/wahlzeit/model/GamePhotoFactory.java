@@ -2,6 +2,13 @@ package org.wahlzeit.model;
 
 import org.wahlzeit.services.SysLog;
 
+@PatternInstance(
+        patternName = "Singleton"
+        participants{
+            "GamePhotoFactory"
+}
+)
+
 public class GamePhotoFactory extends PhotoFactory{
 
     //here we need to change the inits because we want to get GamePhotos which are a special type of Photo, and therefore we need to explicitly instantiate GamePhotosaa

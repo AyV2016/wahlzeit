@@ -1,5 +1,12 @@
 package org.wahlzeit.model;
 
+@PatternInstance(
+        patternName = "Factory Method"
+        participants {
+            "AbstractCoordinate"
+}
+)
+
 public interface Coordinate {
 
     public CartesianCoordinate asCartesianCoordinate()throws Exception;

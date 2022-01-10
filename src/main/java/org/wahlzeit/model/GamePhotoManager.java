@@ -2,6 +2,13 @@ package org.wahlzeit.model;
 
 import java.util.*;
 
+@PatternInstance(
+        patternName = "Singleton"
+        participants {
+            "GamePhotoManager"
+        }
+)
+
 public class GamePhotoManager extends PhotoManager{
 
     protected static final PhotoManager instance = new GamePhotoManager();

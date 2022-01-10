@@ -12,6 +12,15 @@ import org.wahlzeit.utils.*;
  * A user (account) may have been created, confirmed, or disabled.
  * These states are not mutually exclusive.
  */
+
+@PatterInstance(
+		patternName = "Memento"
+		participants = {
+				"user"
+				"userStatus"
+}
+)
+
 public enum UserStatus implements EnumValue {
 
 	/**
