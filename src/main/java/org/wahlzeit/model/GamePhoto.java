@@ -7,6 +7,8 @@ import java.net.URL;
 
 public class GamePhoto extends Photo{
 
+    private Game game = null;
+
     public static final String IMAGE = "image";
     public static final String THUMB = "thumb";
     public static final String LINK = "link";
@@ -92,5 +94,7 @@ public class GamePhoto extends Photo{
         super(loc);
     }
 
-
+    public void setGame(Game game) {
+        this.game = game;
+    }
 }
